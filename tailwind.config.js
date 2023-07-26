@@ -12,6 +12,12 @@ module.exports = {
         txtHover: '#44719D'
       },
     },
+    screens:{
+      'phone':'360px',
+      'tablet': '640px',
+      'laptop':'1024px',
+      'desktop':'1280px'
+    }
   },
   plugins: [],
 }

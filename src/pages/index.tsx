@@ -152,7 +152,7 @@ const Todo = () => {
 
   return (
     <main className="flex justify-center py-10 h-[100vh] bg-blue-400">
-      <div className=" container w-[100%]  sm:w-[50%] md:w-[50%] mx-5 sm:mx-0 max-h-[100%] flex flex-col border rounded-md p-4 gap-3 bg-gray-100">
+      <div className=" container phone:w-[100%] tablet:w-[90%] laptop:w-[50%] max-h-[100%] mx-5 flex flex-col border rounded-md p-4 gap-3 bg-gray-100">
         <div className="flex items-center gap-2 justify-between">
           <div className="flex items-center gap-2">
             <h1 className="text-red-950 text-3xl">TodoList</h1>
@@ -168,14 +168,16 @@ const Todo = () => {
               }}
             />
           </div>
-          <Button
-            disable={deletingAll}
-            onClick={handleDeleteAllTodos}
-            text="Delete All"
-            classname=" border border-red-500  px-5 text-red-500 hover:bg-red-500 hover:text-white"
-          />
+          {todosArray.length > 1 && (
+            <Button
+              disable={deletingAll}
+              onClick={handleDeleteAllTodos}
+              text="Delete All"
+              classname=" border border-red-500  px-5 text-red-500 hover:bg-red-500 hover:text-white"
+            />
+          )}
         </div>
-        <div className=" py-3  overflow-y-auto flex flex-col gap ">
+        <div className=" py-3  overflow-y-auto flex flex-col">
           {deletingAll && (
             <div className="fixed inset-0 bg-slate-700 bg-opacity-60 flex flex-col justify-center items-center">
               <div className="load"></div>
@@ -212,7 +214,7 @@ const Todo = () => {
       </div>
       {showAddModal || showUpdateModal ? (
         <div className="absolute bg-black inset-0 bg-opacity-60 backdrop-blur-sm flex justify-center items-center">
-          <div className="bg-white  w-[50%] p-4 rounded-md flex flex-col gap-y-5 relative">
+          <div className="bg-white phone:w-[100%] tablet:w-[70%] laptop:w-[50%] mx-4 p-4 rounded-md flex flex-col gap-y-5 relative">
             <Button
               icon={<io.IoMdClose />}
               classname="absolute right-3 top-0 hover:text-red-700 text-3xl"
