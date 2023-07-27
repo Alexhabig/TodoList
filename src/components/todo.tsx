@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { useGetAllTodos } from "../api";
 import Button from "./button";
 import * as fi from "react-icons/fi";
 interface Props {
@@ -26,7 +24,7 @@ const Todos = (props: Props) => {
       <div className="flex gap-3">
         <div className="">
           {props.isUpdate ? (
-            <div className="statload flex justify-center ">Loading</div>
+            <div className="statload flex justify-center "></div>
           ) : (
             <div
               className={`text-lg ${

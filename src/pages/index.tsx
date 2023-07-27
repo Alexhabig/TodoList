@@ -30,9 +30,9 @@ const Todo = () => {
 
   const [todoID, SetTodoId] = useState<string | null>(null);
 
-  const [deletingAll, setDeletingAll] = useState(false);
+  const [toBeLoadTodoId, setToBeLoadTodoId] = useState<string | null>(null);
 
-  const [updateStatus, setUpdateStatus] = useState(false);
+  const [deletingAll, setDeletingAll] = useState(false);
 
   const { completeTodo } = useCompleteTodo();
 
@@ -93,10 +93,10 @@ const Todo = () => {
   };
 
   const handleCompleteTodo = async (todoId: string, currentStatus: boolean) => {
-    setUpdateStatus(true);
     const newStatus = !currentStatus;
     try {
       await completeTodo(todoId, newStatus);
+      setToBeLoadTodoId(todoId);
       await fetchTodos();
     } catch (error) {
       console.error("Complete Todo Failed:", error);
@@ -104,7 +104,7 @@ const Todo = () => {
         "An error occurred while completing the todo. Please try again later."
       );
     }
-    setUpdateStatus(false);
+    setToBeLoadTodoId("");
   };
 
   const handleAddTodo = async () => {
@@ -197,7 +197,7 @@ const Todo = () => {
                 desc={todo.desc}
                 status={todo.status}
                 onComplete={() => handleCompleteTodo(todo._id, todo.status)}
-                isUpdate={updateStatus === todo._id}
+                isUpdate={toBeLoadTodoId === todo._id}
                 onEdit={() => {
                   setShowUpdateModal(true);
                   setFormAddTodo({
