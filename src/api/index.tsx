@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { ITodo } from "../types";
 
 // Replace 'YourApiUrl' with the actual URL of your API
-const API_URL = process.env.REACT_APP_USER_API || "";
+const API_URL = process.env.REACT_APP_USER_API;
 
 //api access to get all todos
 export const useGetAllTodos = () => {
