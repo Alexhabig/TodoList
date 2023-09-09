@@ -6,11 +6,13 @@ interface Props {
   placeholder?: string;
   onChange?: (e: any) => void;
   icon?: any;
+  req?: any;
 }
 const Input = (props: Props) => {
   return (
     <>
       <input
+        required={props.req}
         type={props.type}
         className={`${props.className} w-full px-2 py-3 rounded bg-gray-100`}
         value={props.value}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/button";
 import * as io from "react-icons/io";
 import * as fa from "react-icons/fa";
@@ -14,6 +14,8 @@ import {
   useGetAllTodos,
   useUpdateTodo,
 } from "../api";
+import { useGetUser, useLogin } from "../api/bill";
+import { useNavigate } from "react-router-dom";
 
 const Todo = () => {
   const [showAddModal, setShowAddModal] = useState(false);
@@ -141,17 +143,35 @@ const Todo = () => {
       await handleUpdateTodo(todoID);
     }
   };
-  const todosArray = Array.isArray(todos) ? todos : [];
-  // if (loading && !addSuccess) {
-  //   return <div>Loading...</div>;
-  // }
 
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getTodos = async () => {
+      try {
+        await fetchTodos();
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    getTodos();
+  }, []);
+
+  const todosArray = Array.isArray(todos) ? todos : [];
 
   return (
     <main className="flex justify-center py-10 h-[100vh] bg-blue-400">
+      {/* set loading when getting data from backend */}
+      {loading && (
+        <div className="text-3xl absolute inset-0 bg-white/70 flex flex-col gap-1 justify-center items-center">
+          <div className="statload"></div>
+          <h1 className="animate-bounce">Loading</h1>
+        </div>
+      )}
+
       <div className=" container phone:w-[100%] tablet:w-[90%] laptop:w-[50%] max-h-[100%] mx-5 flex flex-col border rounded-md p-4 gap-3 bg-gray-100">
         <div className="flex items-center gap-2 justify-between">
           <div className="flex items-center gap-2">
